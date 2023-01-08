@@ -1,0 +1,1467 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "a12b650d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt\n",
+    "%matplotlib inline"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "92cd3bd9",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "##Lets load the boston house pricing dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "fcb8f327",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from sklearn.datasets import load_boston"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "37035154",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "boston=load_boston()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "2fbb4ebb",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "dict_keys(['data', 'target', 'feature_names', 'DESCR', 'filename', 'data_module'])"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "boston.keys()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "d8e810cf",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      ".. _boston_dataset:\n",
+      "\n",
+      "Boston house prices dataset\n",
+      "---------------------------\n",
+      "\n",
+      "**Data Set Characteristics:**  \n",
+      "\n",
+      "    :Number of Instances: 506 \n",
+      "\n",
+      "    :Number of Attributes: 13 numeric/categorical predictive. Median Value (attribute 14) is usually the target.\n",
+      "\n",
+      "    :Attribute Information (in order):\n",
+      "        - CRIM     per capita crime rate by town\n",
+      "        - ZN       proportion of residential land zoned for lots over 25,000 sq.ft.\n",
+      "        - INDUS    proportion of non-retail business acres per town\n",
+      "        - CHAS     Charles River dummy variable (= 1 if tract bounds river; 0 otherwise)\n",
+      "        - NOX      nitric oxides concentration (parts per 10 million)\n",
+      "        - RM       average number of rooms per dwelling\n",
+      "        - AGE      proportion of owner-occupied units built prior to 1940\n",
+      "        - DIS      weighted distances to five Boston employment centres\n",
+      "        - RAD      index of accessibility to radial highways\n",
+      "        - TAX      full-value property-tax rate per $10,000\n",
+      "        - PTRATIO  pupil-teacher ratio by town\n",
+      "        - B        1000(Bk - 0.63)^2 where Bk is the proportion of black people by town\n",
+      "        - LSTAT    % lower status of the population\n",
+      "        - MEDV     Median value of owner-occupied homes in $1000's\n",
+      "\n",
+      "    :Missing Attribute Values: None\n",
+      "\n",
+      "    :Creator: Harrison, D. and Rubinfeld, D.L.\n",
+      "\n",
+      "This is a copy of UCI ML housing dataset.\n",
+      "https://archive.ics.uci.edu/ml/machine-learning-databases/housing/\n",
+      "\n",
+      "\n",
+      "This dataset was taken from the StatLib library which is maintained at Carnegie Mellon University.\n",
+      "\n",
+      "The Boston house-price data of Harrison, D. and Rubinfeld, D.L. 'Hedonic\n",
+      "prices and the demand for clean air', J. Environ. Economics & Management,\n",
+      "vol.5, 81-102, 1978.   Used in Belsley, Kuh & Welsch, 'Regression diagnostics\n",
+      "...', Wiley, 1980.   N.B. Various transformations are used in the table on\n",
+      "pages 244-261 of the latter.\n",
+      "\n",
+      "The Boston house-price data has been used in many machine learning papers that address regression\n",
+      "problems.   \n",
+      "     \n",
+      ".. topic:: References\n",
+      "\n",
+      "   - Belsley, Kuh & Welsch, 'Regression diagnostics: Identifying Influential Data and Sources of Collinearity', Wiley, 1980. 244-261.\n",
+      "   - Quinlan,R. (1993). Combining Instance-Based and Model-Based Learning. In Proceedings on the Tenth International Conference of Machine Learning, 236-243, University of Massachusetts, Amherst. Morgan Kaufmann.\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "##lets check the description of the dataset\n",
+    "print(boston.DESCR)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e10cfa7e",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "print(boston.data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6e8c6ab7",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "print(boston.target)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f998ed0b",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "print(boston.feature_names)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "24c6f3c8",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##preparing the dataset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "72436e8f",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "dataset=pd.DataFrame(boston.data,columns=boston.feature_names)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4236c7c0",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "dataset.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a898b416",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "dataset['price']=boston.target"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f5962e62",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "dataset.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ff493aee",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "dataset.info()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "768d0f2b",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##somerising the stats o f the data\n",
+    "dataset.describe()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1432248b",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##check the mising values\n",
+    "dataset.isnull().sum()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0c01323b",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "###exploratory data analysis\n",
+    "##correlation\n",
+    "dataset.corr()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "12013697",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "import seaborn as sns\n",
+    "sns.pairplot(dataset)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7050e1d9",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##analyzing the correlated features"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7be69df5",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "plt.scatter(dataset['CRIM'],dataset['price'])\n",
+    "plt.xlabel(\"Crime Rate\")\n",
+    "plt.ylabel(\"Price\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "a7a632ef",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "plt.scatter(dataset['RM'],dataset['price'])\n",
+    "plt.xlabel(\"RM\")\n",
+    "plt.ylabel(\"Price\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8d59382a",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "import seaborn as sns\n",
+    "sns.regplot(x=\"RM\",y=\"price\",data=dataset)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f6d0abef",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "import seaborn as sns\n",
+    "sns.regplot(x=\"LSTAT\",y=\"price\",data=dataset)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7ab02ba7",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "sns.regplot(x=\"CHAS\",y=\"price\",data=dataset)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2bc7d00e",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "\n",
+    "sns.regplot(x=\"PTRATIO\",y=\"price\",data=dataset)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ef5f8501",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##independent and depepndent features\n",
+    "\n",
+    "x=dataset.iloc[:,:-1]\n",
+    "y=dataset.iloc[:,-1]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "07a83b01",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "x.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7ce86f95",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "y"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "e3438c40",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##Train test split\n",
+    "from sklearn.model_selection import train_test_split\n",
+    "x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.3,random_state=42)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b1909582",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "x_train"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b7254d78",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "x_test"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7210765e",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##stadardize the dataset\n",
+    "from sklearn.preprocessing import StandardScaler\n",
+    "scaler=StandardScaler()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f5cd955d",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "x_train=scaler.fit_transform(x_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "38b136ad",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "x_test=scaler.fit_transform(x_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "f68406ed",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "x_train"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "id": "203bc70a",
+   "metadata": {},
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "1ee56400",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##Model Training"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "12b550dc",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.linear_model import LinearRegression"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c57479c5",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "regression=LinearRegression()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "888b0d61",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "regression.fit(x_train,y_train)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0d31270d",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##print the coeffient and the intercept\n",
+    "print(regression.coef_)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0e6e8342",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "print(regression.intercept_)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "89da155a",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##on which parameter the model has been trained\n",
+    "regression.get_params()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "59a6c398",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "###prediction with the test data\n",
+    "reg_pred=regression.predict(x_test)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7b25d9cc",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "reg_pred"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "8d336c9f",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##plot a scatter plot for the prediction\n",
+    "plt.scatter(y_test,reg_pred)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "68bcf0cb",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##residuals\n",
+    "residuals=y_test-reg_pred"
+   ]
+  },
+  {
+   "cell_type": "raw",
+   "id": "2d79df27",
+   "metadata": {},
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "4d684ab6",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "residuals"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "057558a0",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##plot this residuals\n",
+    "sns.displot(residuals,kind=\"kde\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c22070b9",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "## scatter plot with respepct to prediction and resduals\n",
+    "plt.scatter(reg_pred,residuals)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ffafa6e7",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.metrics import mean_squared_error\n",
+    "from sklearn.metrics import mean_absolute_error\n",
+    "print(mean_absolute_error(y_test,reg_pred))\n",
+    "print(mean_squared_error(y_test,reg_pred))\n",
+    "print(np.sqrt(mean_squared_error(y_test,reg_pred)))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "72a16b64",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "# Rsquare and adjusted Rsquare"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c494bb98",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "from sklearn.metrics import r2_score\n",
+    "score=r2_score(y_test,reg_pred)\n",
+    "print(score)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "96a9bcb2",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "#display adjusted R-squared\n",
+    "-(1-score)*(len(y_test)-1)/(len(y_test)-x_test.shape[1]-1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "5bc157e5",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "#New  data prediction"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "9ae28e5d",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6bca5a1a",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "boston.data[0].reshape(1,-1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "ae1da441",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "##transformation of new data\n",
+    "scaler.transform(boston.data[0].reshape(1,-1))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "6c5bfb0b",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "regression.predict(boston.data[0].reshape(1,-1))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "d76f19de",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "regression.predict(scaler.transform(boston.data[0].reshape(1,-1)))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7932e2b9",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "# Pickling the model file for deploymnet "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "74a0fff9",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "import pickle"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "46790c63",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "pickle.dump(regression,open('remodel.pkl','wb'))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "3790685c",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "pickled_model=pickle.load(open('remodel.pkl','rb'))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "93d167ef",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": [
+    "## prediction\n",
+    "pickled_model.predict(scaler.transform(boston.data[0].reshape(1,-1)))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7c9b8f8d",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "",
+     "evalue": "",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31mRunning cells with '.venv' requires ipykernel package.\n",
+      "\u001b[1;31mRun the following command to install 'ipykernel' into the Python environment. \n",
+      "\u001b[1;31mCommand: 'c:/Users/Rutik/bostonhousepricing/.venv/Scripts/python.exe -m pip install ipykernel -U --force-reinstall'"
+     ]
+    }
+   ],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.13"
+  },
+  "vscode": {
+   "interpreter": {
+    "hash": "b6a36f6b5197f9542fb5aa38f368454e0a73f435751a8c7172175b47e7727b88"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
